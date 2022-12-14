@@ -1,4 +1,4 @@
-package br.mrc.helpdesk.infrastructure.repositories;
+package br.mrc.helpdesk.domain.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
