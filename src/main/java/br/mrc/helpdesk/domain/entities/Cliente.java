@@ -1,13 +1,20 @@
 package br.mrc.helpdesk.domain.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 /**
  * Cliente.
  * AULA: 6
  */
-public class Cliente extends Pessoa{
+@Entity
+public class Cliente extends Pessoa implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
+	@OneToMany(mappedBy = "cliente") //Um chamado só pode ter um cliente
 	private List<Chamado> chamados = new ArrayList<>();
 
 	public Cliente() {

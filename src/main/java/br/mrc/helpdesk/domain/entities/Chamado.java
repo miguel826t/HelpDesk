@@ -3,22 +3,42 @@ package br.mrc.helpdesk.domain.entities;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import br.mrc.helpdesk.domain.enums.Prioridade;
 import br.mrc.helpdesk.domain.enums.Status;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 /**
  * Chamado.
  * AULA: 6
  */
+@Entity
 public class Chamado {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataAbertura = LocalDate.now();
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataFechamento;
+	
 	private Prioridade prioridade;
 	private Status status;
 	private String titulo;
 	private String observacaoes;
 	
+	@ManyToOne //Um tenico pode ter muitos chamados
+	@JoinColumn(name = "tecnico_id")
 	private Tecnico tecnico;
+	@ManyToOne //Um cliente pode ter muitos chamados
+	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 	
 	public Chamado(Integer id, Prioridade prioridade, Status status, String titulo, String observacaoes,

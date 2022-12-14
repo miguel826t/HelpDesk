@@ -1,13 +1,20 @@
 package br.mrc.helpdesk.domain.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 /**
  * Tecnico.
  * AULA: 6
  */
-public class Tecnico extends Pessoa{
+@Entity
+public class Tecnico extends Pessoa implements Serializable{
+	private static final long serialVersionUID = 1L;
 
+	@OneToMany(mappedBy = "tecnico") //Um chamado só pode ter um tecnico
 	private List<Chamado> chamados = new ArrayList<>();
 
 	public Tecnico() {
