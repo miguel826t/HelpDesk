@@ -7,7 +7,10 @@ import org.springframework.stereotype.Service;
 
 import br.mrc.helpdesk.domain.entities.Tecnico;
 import br.mrc.helpdesk.domain.repositories.TecnicoRepository;
-
+/**
+ * Service do Tecnico.
+ * AULA: 11
+ */
 @Service
 public class TecnicoService {
 	
