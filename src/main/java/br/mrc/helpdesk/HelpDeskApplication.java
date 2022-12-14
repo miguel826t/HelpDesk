@@ -1,4 +1,4 @@
-package br.mrc.main;
+package br.mrc.helpdesk;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
