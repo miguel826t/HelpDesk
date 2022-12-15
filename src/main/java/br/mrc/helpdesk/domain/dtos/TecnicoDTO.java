@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.mrc.helpdesk.domain.entities.Tecnico;
 import br.mrc.helpdesk.domain.enums.Perfil;
+import jakarta.validation.constraints.NotNull;
 /**
  * Objeto Tecnico para atender padrão DTO (Objeto de transferencia de dados).
  * AULA: 12
@@ -18,9 +19,13 @@ public class TecnicoDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	protected Integer id;
+	@NotNull(message = "Nome é obrigatorio")
 	protected String nome;
+	@NotNull(message = "CPF é obrigatorio")
 	protected Integer cpf;
+	@NotNull(message = "E-mail é obrigatorio")
 	protected String email;
+	@NotNull(message = "Senha é obrigatorio")
 	protected String senha;
 	protected Set<Integer> perfils = new HashSet<>();
 	

@@ -17,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.mrc.helpdesk.domain.dtos.TecnicoDTO;
 import br.mrc.helpdesk.domain.entities.Tecnico;
 import br.mrc.helpdesk.infrastructure.services.TecnicoService;
+import jakarta.validation.Valid;
 /**
  * Controller para Tecnico.
  * AULA: 11
@@ -43,7 +44,7 @@ public class TecnicosResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<TecnicoDTO> create(@RequestBody TecnicoDTO objDTO){
+	public ResponseEntity<TecnicoDTO> create(@Valid @RequestBody TecnicoDTO objDTO){
 		objDTO.setId(null);
 		Tecnico tecnico = new Tecnico(objDTO);
 		tecnicoService.create(tecnico);
