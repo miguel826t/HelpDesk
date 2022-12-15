@@ -2,6 +2,7 @@ package br.mrc.helpdesk.infrastructure.services;
 
 import java.util.Optional;
 
+import br.mrc.helpdesk.infrastructure.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ public class TecnicoService {
 	
 	public Tecnico findById(Integer id) {
 		Optional<Tecnico> obj = tecnicos.findById(id);
-		return obj.orElse(null);
+		return obj.orElseThrow(()-> new ObjectNotFoundException("Tecnico não encontrado! Id: "+id));
 	}
 	
 }
