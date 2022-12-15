@@ -1,5 +1,8 @@
 package br.mrc.helpdesk.infrastructure.resources;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,4 +29,13 @@ public class TecnicosResource {
 		Tecnico tecnico = tecnicoService.findById(id);
 		return ResponseEntity.ok().body(new TecnicoDTO(tecnico));
 	}
+	
+	@GetMapping
+	public ResponseEntity<List<TecnicoDTO>> findAll(){
+		List<Tecnico> list = tecnicoService.findAll();
+		
+		List<TecnicoDTO> listDTO = list.stream().map(t -> new TecnicoDTO(t)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
+	}
+	
 }
