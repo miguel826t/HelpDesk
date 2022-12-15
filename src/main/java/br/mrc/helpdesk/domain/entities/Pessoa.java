@@ -33,7 +33,7 @@ public abstract class Pessoa implements Serializable{
 	protected String nome;
 	
 	@Column(unique = true)
-	protected Integer cpf;
+	protected String cpf;
 	
 	@Column(unique = true)
 	protected String email;
@@ -51,7 +51,7 @@ public abstract class Pessoa implements Serializable{
 		addPerfils(Perfil.CLIENTE);
 	}
 
-	public Pessoa(String nome, Integer cpf, String email, String senha) {
+	public Pessoa(String nome, String cpf, String email, String senha) {
 		super();
 		this.nome = nome;
 		this.cpf = cpf;
@@ -76,11 +76,11 @@ public abstract class Pessoa implements Serializable{
 		this.nome = nome;
 	}
 
-	public Integer getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(Integer cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 

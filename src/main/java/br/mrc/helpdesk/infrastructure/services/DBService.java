@@ -26,8 +26,8 @@ public class DBService {
 	
 	public void instanciarDB() {
 		
-		Tecnico tec1 = new Tecnico("Mrc", 123456789, "mrc@gmail.com", "senhaMRc");
-		Cliente cli1 = new Cliente("Debora",94234153,"Db@gmail.com","dbk123");
+		Tecnico tec1 = new Tecnico("Mrc", "123456789", "mrc@gmail.com", "senhaMRc");
+		Cliente cli1 = new Cliente("Debora","94234153","Db@gmail.com","dbk123");
 		
 		Chamado c1 = new Chamado(null,Prioridade.ALTA,Status.ABERTO,"Alteracao no codigo","Nada",tec1,cli1);
 		

@@ -3,6 +3,7 @@ package br.mrc.helpdesk.infrastructure.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,16 @@ public class TecnicoService {
 		validaPorCpfeEmail(tecnico);
 		return tecnicos.save(tecnico); 
 	}
+	
+	public Tecnico update(Tecnico tecnico) {
+		Optional<Tecnico> oldTecnico = tecnicos.findById(tecnico.getId());
+		if(oldTecnico.isEmpty()) {
+			throw new ObjectNotFoundException("Tecnico não encontrado! Id: "+ tecnico.getId());
+		}
+		validaPorCpfeEmail(tecnico);
+		BeanUtils.copyProperties(tecnico, oldTecnico.get(),"id");
+		return tecnicos.save(tecnico); 
+	}
 
 	private void validaPorCpfeEmail(Tecnico tecnico) {
 		Optional<Pessoa> obj = pessoasRepository.findByCpf(tecnico.getCpf());
@@ -49,6 +60,8 @@ public class TecnicoService {
 		if(obj.isPresent() && obj.get().getId() != tecnico.getId()) {
 			throw new DataIntegrityViolationException("E-mail já cadastrado no sistema!");
 		}
-		
 	}
+	
+	
+	
 }

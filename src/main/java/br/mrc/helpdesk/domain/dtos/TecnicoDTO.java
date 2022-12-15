@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.mrc.helpdesk.domain.entities.Tecnico;
@@ -21,8 +23,10 @@ public class TecnicoDTO implements Serializable{
 	protected Integer id;
 	@NotNull(message = "Nome é obrigatorio")
 	protected String nome;
+	
+	@CPF
 	@NotNull(message = "CPF é obrigatorio")
-	protected Integer cpf;
+	protected String cpf;
 	@NotNull(message = "E-mail é obrigatorio")
 	protected String email;
 	@NotNull(message = "Senha é obrigatorio")
@@ -65,11 +69,11 @@ public class TecnicoDTO implements Serializable{
 		this.nome = nome;
 	}
 
-	public Integer getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(Integer cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 
