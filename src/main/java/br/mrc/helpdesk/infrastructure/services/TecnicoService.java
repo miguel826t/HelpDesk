@@ -41,12 +41,9 @@ public class TecnicoService {
 	}
 	
 	public Tecnico update(Tecnico tecnico) {
-		Optional<Tecnico> oldTecnico = tecnicos.findById(tecnico.getId());
-		if(oldTecnico.isEmpty()) {
-			throw new ObjectNotFoundException("Tecnico não encontrado! Id: "+ tecnico.getId());
-		}
+		Tecnico oldTecnico = findById(tecnico.getId());
 		validaPorCpfeEmail(tecnico);
-		BeanUtils.copyProperties(tecnico, oldTecnico.get(),"id");
+		BeanUtils.copyProperties(tecnico, oldTecnico,"id");
 		return tecnicos.save(tecnico); 
 	}
 
@@ -55,7 +52,6 @@ public class TecnicoService {
 		if(tecnico.getChamados().size() > 0) {
 			throw new DataIntegrityViolationException("Tecnico possui ordens de servico vinculadas e não pode ser deletado!");
 		}
-		
 		tecnicos.deleteById(id);		
 	}
 	
@@ -70,10 +66,4 @@ public class TecnicoService {
 			throw new DataIntegrityViolationException("E-mail já cadastrado no sistema!");
 		}
 	}
-
-	
-	
-	
-	
-	
 }
