@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import br.mrc.helpdesk.domain.dtos.ChamadoDTO;
 import br.mrc.helpdesk.domain.enums.Prioridade;
 import br.mrc.helpdesk.domain.enums.Status;
 import jakarta.persistence.Entity;
@@ -54,6 +55,18 @@ public class Chamado {
 		this.status = status;
 		this.titulo = titulo;
 		this.observacaoes = observacaoes;
+		this.tecnico = tecnico;
+		this.cliente = cliente;
+	}
+	
+	public Chamado(ChamadoDTO chamadoDTO,Tecnico tecnico,Cliente cliente) {
+		super();
+		this.id = chamadoDTO.getId();
+		this.prioridade = Prioridade.toEnum(chamadoDTO.getPrioridade());
+		this.dataFechamento = chamadoDTO.getDataFechamento();
+		this.status = Status.toEnum(chamadoDTO.getStatus());
+		this.titulo = chamadoDTO.getTitulo();
+		this.observacaoes = chamadoDTO.getObservacaoes();
 		this.tecnico = tecnico;
 		this.cliente = cliente;
 	}
@@ -138,7 +151,4 @@ public class Chamado {
 		Chamado other = (Chamado) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
-	
 }
