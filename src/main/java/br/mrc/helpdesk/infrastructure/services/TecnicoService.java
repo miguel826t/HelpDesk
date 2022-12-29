@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.mrc.helpdesk.domain.entities.Pessoa;
@@ -22,7 +23,8 @@ public class TecnicoService {
 	
 	@Autowired
 	private TecnicoRepository tecnicos;
-	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	@Autowired
 	private PessoaRepository pessoasRepository;
 	
@@ -37,6 +39,7 @@ public class TecnicoService {
 
 	public Tecnico create(Tecnico tecnico) {
 		validaPorCpfeEmail(tecnico);
+		tecnico.setSenha(encoder.encode(tecnico.getSenha()));
 		return tecnicos.save(tecnico); 
 	}
 	

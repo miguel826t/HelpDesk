@@ -3,11 +3,13 @@ package br.mrc.helpdesk.infrastructure.services;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.mrc.helpdesk.domain.entities.Chamado;
 import br.mrc.helpdesk.domain.entities.Cliente;
 import br.mrc.helpdesk.domain.entities.Tecnico;
+import br.mrc.helpdesk.domain.enums.Perfil;
 import br.mrc.helpdesk.domain.enums.Prioridade;
 import br.mrc.helpdesk.domain.enums.Status;
 import br.mrc.helpdesk.domain.repositories.ChamadoRepository;
@@ -23,18 +25,21 @@ public class DBService {
 	private ClienteRepository clienteRepository;
 	@Autowired
 	private ChamadoRepository chamadoRepository;
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	
 	public void instanciarDB() {
 		
-		Tecnico tec1 = new Tecnico("MRC", "60275211800", "MRC@gmail.com", "senhaMRc");
-		Tecnico tec2 = new Tecnico("GHP", "38647466802", "GHP@gmail.com", "senhaGHP");
-		Tecnico tec3 = new Tecnico("RSS", "37333767574", "RSS@gmail.com", "senhaRSS");
-		Tecnico tec4 = new Tecnico("REO", "40645823490", "REO@gmail.com", "senhaREO");
+		Tecnico tec1 = new Tecnico("MRC", "60275211800", "MRC@gmail.com", encoder.encode("senhaMRc"));
+		tec1.addPerfil(Perfil.ADMIN);
+		Tecnico tec2 = new Tecnico("GHP", "38647466802", "GHP@gmail.com", encoder.encode("senhaGHP"));
+		Tecnico tec3 = new Tecnico("RSS", "37333767574", "RSS@gmail.com", encoder.encode("senhaRSS"));
+		Tecnico tec4 = new Tecnico("REO", "40645823490", "REO@gmail.com", encoder.encode("senhaREO"));
 		
-		Cliente cli1 = new Cliente("Debora","20653436300","Deb@gmail.com","534");
-		Cliente cli2 = new Cliente("Microsoft","67727552518","Mic@gmail.com","7727");
-		Cliente cli3 = new Cliente("Nestle","71785744704","Nes@gmail.com","5744");
-		Cliente cli4 = new Cliente("Ipecacuanha","47722537502","Ipe@gmail.com","4772");
+		Cliente cli1 = new Cliente("Debora","20653436300","Deb@gmail.com",encoder.encode("534"));
+		Cliente cli2 = new Cliente("Microsoft","67727552518","Mic@gmail.com",encoder.encode("7727"));
+		Cliente cli3 = new Cliente("Nestle","71785744704","Nes@gmail.com",encoder.encode("5744"));
+		Cliente cli4 = new Cliente("Ipecacuanha","47722537502","Ipe@gmail.com",encoder.encode("4772"));
 		
 		Chamado c1 = new Chamado(null,Prioridade.ALTA,Status.ANDAMENTO,"Alteracao no codigo","Nada1",tec1,cli1);
 		Chamado c2 = new Chamado(null,Prioridade.BAIXA,Status.ABERTO,"Alteracao no codigo","Nada2",tec2,cli2);
