@@ -12,6 +12,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -27,11 +28,12 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import br.mrc.helpdesk.infrastructure.services.UserDetailsServiceImpl;
 import br.mrc.helpdesk.security.JWTAuthenticationFilter;
+import br.mrc.helpdesk.security.JWTAuthorizationFilter;
 import br.mrc.helpdesk.security.JWTUtil;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(prePostEnabled = false, securedEnabled = true)
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {// extends WebSecurityConfigureAdapter{
 
 	private static final String[] PUBLIC_MATCHERS = { "/h2-console/**"};
@@ -88,7 +90,9 @@ public class SecurityConfig {// extends WebSecurityConfigureAdapter{
 //                .anyRequest().authenticated());
         
         http.authenticationProvider(authenticationProvider());
-		http.addFilter(new JWTAuthenticationFilter(authenticationManager(http.getSharedObject(AuthenticationConfiguration.class)),jwtUtil));
+        AuthenticationManager manager = authenticationManager(http.getSharedObject(AuthenticationConfiguration.class));
+		http.addFilter(new JWTAuthenticationFilter(manager,jwtUtil));
+		http.addFilter(new JWTAuthorizationFilter(manager, jwtUtil, userDetailsService));
 		//http.addFilter(new JWTAuthenticationFilter(authenticationManager(new AuthenticationConfiguration()), jwtUtil));
 		http.formLogin();
 
