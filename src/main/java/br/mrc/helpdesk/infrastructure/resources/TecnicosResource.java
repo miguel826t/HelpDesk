@@ -71,5 +71,4 @@ public class TecnicosResource {
 		tecnicoService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-	
 }
