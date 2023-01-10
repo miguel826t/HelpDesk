@@ -45,6 +45,11 @@ public class TecnicoService {
 	
 	public Tecnico update(Tecnico tecnico) {
 		Tecnico oldTecnico = findById(tecnico.getId());
+		
+		if(!tecnico.getSenha().equals(oldTecnico.getSenha())) {
+			tecnico.setSenha(encoder.encode(tecnico.getSenha()));
+		}
+		
 		validaPorCpfeEmail(tecnico);
 		BeanUtils.copyProperties(tecnico, oldTecnico,"id");
 		return tecnicos.save(tecnico); 

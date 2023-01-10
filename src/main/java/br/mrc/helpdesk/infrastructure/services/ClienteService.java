@@ -43,6 +43,11 @@ public class ClienteService{
 	
 	public Cliente update(Cliente cliente) {
 		Cliente clienteOld = findById(cliente.getId());
+		
+		if(!cliente.getSenha().equals(clienteOld.getSenha())) {
+			cliente.setSenha(encoder.encode(cliente.getSenha()));
+		}
+		
 		validaPorCpfeEmail(cliente);
 		BeanUtils.copyProperties(cliente, clienteOld);
 		return clientes.save(cliente);
