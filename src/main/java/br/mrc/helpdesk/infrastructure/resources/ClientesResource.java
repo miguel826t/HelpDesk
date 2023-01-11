@@ -43,7 +43,6 @@ public class ClientesResource {
 		return ResponseEntity.ok().body(clientesDTO);
 	}
 	
-	@PreAuthorize("hasAnyRole('TECNICO')")
 	@PostMapping
 	public ResponseEntity<ClienteDTO> create(@Valid @RequestBody ClienteDTO objDTO){
 		objDTO.setId(null);
@@ -53,7 +52,6 @@ public class ClientesResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@PreAuthorize("hasAnyRole('TECNICO')")
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<ClienteDTO> update(@PathVariable Integer id,@RequestBody ClienteDTO objDTO){
 		objDTO.setId(id);
@@ -62,7 +60,6 @@ public class ClientesResource {
 		return ResponseEntity.ok().body(objRetorno);
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping(value= "/{id}")
 	public ResponseEntity<ClienteDTO> delete(@PathVariable Integer id){
 		clienteService.delete(id);
